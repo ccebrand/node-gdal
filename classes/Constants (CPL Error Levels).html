@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Constants (GRA) - node-gdal</title>
+    <title>Constants (CPL Error Levels) - node-gdal</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -170,7 +170,7 @@
                 <div id="docs-main">
                     <div class="content">
 <div class="page-header">
-    <h1>Constants (GRA)</h1>
+    <h1>Constants (CPL Error Levels)</h1>
 </div>
 
     
@@ -183,11 +183,6 @@
 
 
 
-
-<div class="yuidoc-class-description">
-<p>Resampling options that can be used with the gdal.reprojectImage() method.</p>
-
-</div>
 
 
 <!-- table of contents -->
@@ -202,19 +197,15 @@
 			<strong>Properties</strong>
 			<ul>
 				
-				<li><a href="#prop-gdal.GRA_Average"><span class="ip">gdal.GRA_Average</span></a></li>
+				<li><a href="#prop-gdal.CE_Debug"><span class="ip">gdal.CE_Debug</span></a></li>
 				
-				<li><a href="#prop-gdal.GRA_Bilinear"><span class="ip">gdal.GRA_Bilinear</span></a></li>
+				<li><a href="#prop-gdal.CE_Failure"><span class="ip">gdal.CE_Failure</span></a></li>
 				
-				<li><a href="#prop-gdal.GRA_Cubic"><span class="ip">gdal.GRA_Cubic</span></a></li>
+				<li><a href="#prop-gdal.CE_Fatal"><span class="ip">gdal.CE_Fatal</span></a></li>
 				
-				<li><a href="#prop-gdal.GRA_CubicSpline"><span class="ip">gdal.GRA_CubicSpline</span></a></li>
+				<li><a href="#prop-gdal.CE_None"><span class="ip">gdal.CE_None</span></a></li>
 				
-				<li><a href="#prop-gdal.GRA_Lanczos"><span class="ip">gdal.GRA_Lanczos</span></a></li>
-				
-				<li><a href="#prop-gdal.GRA_Mode"><span class="ip">gdal.GRA_Mode</span></a></li>
-				
-				<li><a href="#prop-gdal.GRA_NearestNeighbor"><span class="ip">gdal.GRA_NearestNeighbor</span></a></li>
+				<li><a href="#prop-gdal.CE_Warning"><span class="ip">gdal.CE_Warning</span></a></li>
 				
 			</ul>
 		</li>
@@ -238,9 +229,9 @@
 
         <div class="item-list">
         
-<div id="prop-gdal.GRA_Average" class="property item">
-    <h3 class="name"><code>gdal.GRA_Average</code></h3>
-    <span class="type">String</span>
+<div id="prop-gdal.CE_Debug" class="property item">
+    <h3 class="name"><code>gdal.CE_Debug</code></h3>
+    <span class="type">Number</span>
 
     
 
@@ -263,7 +254,7 @@
             
         
         
-        <a href="../files/src_node_gdal.cpp.html#l1119"><code>src&#x2F;node_gdal.cpp:1119</code></a>
+        <a href="../files/src_node_gdal.cpp.html#l329"><code>src&#x2F;node_gdal.cpp:329</code></a>
         
         </p>
 
@@ -273,7 +264,8 @@
     </div>
 
     <div class="description">
-        
+        <p>Error level: Debug</p>
+
     </div>
 
     
@@ -284,9 +276,9 @@
 </div>
 
         
-<div id="prop-gdal.GRA_Bilinear" class="property item">
-    <h3 class="name"><code>gdal.GRA_Bilinear</code></h3>
-    <span class="type">String</span>
+<div id="prop-gdal.CE_Failure" class="property item">
+    <h3 class="name"><code>gdal.CE_Failure</code></h3>
+    <span class="type">Number</span>
 
     
 
@@ -309,7 +301,7 @@
             
         
         
-        <a href="../files/src_node_gdal.cpp.html#l1095"><code>src&#x2F;node_gdal.cpp:1095</code></a>
+        <a href="../files/src_node_gdal.cpp.html#l345"><code>src&#x2F;node_gdal.cpp:345</code></a>
         
         </p>
 
@@ -319,7 +311,8 @@
     </div>
 
     <div class="description">
-        
+        <p>Error level: Failure</p>
+
     </div>
 
     
@@ -330,16 +323,14 @@
 </div>
 
         
-<div id="prop-gdal.GRA_Cubic" class="property item">
-    <h3 class="name"><code>gdal.GRA_Cubic</code></h3>
-    <span class="type">String</span>
+<div id="prop-gdal.CE_Fatal" class="property item">
+    <h3 class="name"><code>gdal.CE_Fatal</code></h3>
+    <span class="type">Number</span>
 
     
 
     
 
-    
-        <span class="flag final">const</span>
     
 
     
@@ -355,7 +346,7 @@
             
         
         
-        <a href="../files/src_node_gdal.cpp.html#l1101"><code>src&#x2F;node_gdal.cpp:1101</code></a>
+        <a href="../files/src_node_gdal.cpp.html#l353"><code>src&#x2F;node_gdal.cpp:353</code></a>
         
         </p>
 
@@ -365,7 +356,8 @@
     </div>
 
     <div class="description">
-        
+        <p>Error level: Fatal</p>
+
     </div>
 
     
@@ -376,9 +368,9 @@
 </div>
 
         
-<div id="prop-gdal.GRA_CubicSpline" class="property item">
-    <h3 class="name"><code>gdal.GRA_CubicSpline</code></h3>
-    <span class="type">String</span>
+<div id="prop-gdal.CE_None" class="property item">
+    <h3 class="name"><code>gdal.CE_None</code></h3>
+    <span class="type">Number</span>
 
     
 
@@ -401,7 +393,7 @@
             
         
         
-        <a href="../files/src_node_gdal.cpp.html#l1107"><code>src&#x2F;node_gdal.cpp:1107</code></a>
+        <a href="../files/src_node_gdal.cpp.html#l321"><code>src&#x2F;node_gdal.cpp:321</code></a>
         
         </p>
 
@@ -411,7 +403,8 @@
     </div>
 
     <div class="description">
-        
+        <p>Error level: (no error)</p>
+
     </div>
 
     
@@ -422,9 +415,9 @@
 </div>
 
         
-<div id="prop-gdal.GRA_Lanczos" class="property item">
-    <h3 class="name"><code>gdal.GRA_Lanczos</code></h3>
-    <span class="type">String</span>
+<div id="prop-gdal.CE_Warning" class="property item">
+    <h3 class="name"><code>gdal.CE_Warning</code></h3>
+    <span class="type">Number</span>
 
     
 
@@ -447,7 +440,7 @@
             
         
         
-        <a href="../files/src_node_gdal.cpp.html#l1113"><code>src&#x2F;node_gdal.cpp:1113</code></a>
+        <a href="../files/src_node_gdal.cpp.html#l337"><code>src&#x2F;node_gdal.cpp:337</code></a>
         
         </p>
 
@@ -457,99 +450,8 @@
     </div>
 
     <div class="description">
-        
-    </div>
+        <p>Error level: Warning</p>
 
-    
-
-    
-
-    
-</div>
-
-        
-<div id="prop-gdal.GRA_Mode" class="property item">
-    <h3 class="name"><code>gdal.GRA_Mode</code></h3>
-    <span class="type">String</span>
-
-    
-
-    
-
-    
-        <span class="flag final">const</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_node_gdal.cpp.html#l1125"><code>src&#x2F;node_gdal.cpp:1125</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-        
-<div id="prop-gdal.GRA_NearestNeighbor" class="property item">
-    <h3 class="name"><code>gdal.GRA_NearestNeighbor</code></h3>
-    <span class="type">String</span>
-
-    
-
-    
-
-    
-        <span class="flag final">const</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_node_gdal.cpp.html#l1089"><code>src&#x2F;node_gdal.cpp:1089</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
     </div>
 
     

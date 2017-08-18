@@ -24,22 +24,26 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.6.0</b>
+                    API Docs for Version: <b>0.9.5</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Constants (DCAP)", "classes/Constants (DMD)", "classes/Constants (GCI)", "classes/Constants (GDT)", "classes/Constants (GRA)", "classes/Constants (ODsC)", "classes/Constants (OFT)", "classes/Constants (OJ)", "classes/Constants (OLC)", "classes/Constants (wkbByteOrder)", "classes/Constants (wkbGeometryType)", "classes/Constants (wkbVariant)", "classes/gdal", "classes/gdal.CoordinateTransformation", "classes/gdal.Dataset", "classes/gdal.DatasetBands", "classes/gdal.DatasetLayers", "classes/gdal.Driver", "classes/gdal.Envelope", "classes/gdal.Envelope3D", "classes/gdal.Feature", "classes/gdal.FeatureDefn", "classes/gdal.FeatureDefnFields", "classes/gdal.FeatureFields", "classes/gdal.FieldDefn", "classes/gdal.GDALDrivers", "classes/gdal.Geometry", "classes/gdal.GeometryCollection", "classes/gdal.GeometryCollectionChildren", "classes/gdal.Layer", "classes/gdal.LayerFeatures", "classes/gdal.LayerFields", "classes/gdal.LinearRing", "classes/gdal.LineString", "classes/gdal.LineStringPoints", "classes/gdal.MultiLineString", "classes/gdal.MultiPoint", "classes/gdal.MultiPolygon", "classes/gdal.Point", "classes/gdal.Polygon", "classes/gdal.PolygonRings", "classes/gdal.RasterBand", "classes/gdal.RasterBandOverviews", "classes/gdal.RasterBandPixels", "classes/gdal.SpatialReference"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Constants (CPL Error Codes)", "classes/Constants (CPL Error Levels)", "classes/Constants (DCAP)", "classes/Constants (DMD)", "classes/Constants (GCI)", "classes/Constants (GDT)", "classes/Constants (GRA)", "classes/Constants (ODsC)", "classes/Constants (OFT)", "classes/Constants (OJ)", "classes/Constants (OLC)", "classes/Constants (wkbByteOrder)", "classes/Constants (wkbGeometryType)", "classes/Constants (wkbVariant)", "classes/gdal", "classes/gdal.CoordinateTransformation", "classes/gdal.Dataset", "classes/gdal.DatasetBands", "classes/gdal.DatasetLayers", "classes/gdal.Driver", "classes/gdal.Envelope", "classes/gdal.Envelope3D", "classes/gdal.Feature", "classes/gdal.FeatureDefn", "classes/gdal.FeatureDefnFields", "classes/gdal.FeatureFields", "classes/gdal.FieldDefn", "classes/gdal.GDALDrivers", "classes/gdal.Geometry", "classes/gdal.GeometryCollection", "classes/gdal.GeometryCollectionChildren", "classes/gdal.Layer", "classes/gdal.LayerFeatures", "classes/gdal.LayerFields", "classes/gdal.LinearRing", "classes/gdal.LineString", "classes/gdal.LineStringPoints", "classes/gdal.MultiLineString", "classes/gdal.MultiPoint", "classes/gdal.MultiPolygon", "classes/gdal.Point", "classes/gdal.Polygon", "classes/gdal.PolygonRings", "classes/gdal.RasterBand", "classes/gdal.RasterBandOverviews", "classes/gdal.RasterBandPixels", "classes/gdal.SpatialReference"]'>
         </form>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="span3">
-	    <div>
+<div>
     <div id="sidebar">
     <div id="classes">
         <ul id="api-classes" class="nav nav-list">
+            
+                <li><a href="../classes/Constants (CPL Error Codes).html">Constants (CPL Error Codes)</a></li>
+            
+                <li><a href="../classes/Constants (CPL Error Levels).html">Constants (CPL Error Levels)</a></li>
             
                 <li><a href="../classes/Constants (DCAP).html">Constants (DCAP)</a></li>
             
@@ -138,7 +142,7 @@
 
         </div>
         <div class="span9">
-                <form id="options-form" class="form-inline pull-right">
+    <form id="options-form" class="form-inline pull-right">
         Show:
         <label for="api-show-inherited" class="checkbox">
             <input type="checkbox" id="api-show-inherited" checked>
@@ -165,7 +169,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <div class="page-header">
+<div class="page-header">
     <h1>src/gdal.hpp <small>File</small></h1>
 </div>
 
@@ -199,7 +203,7 @@ namespace node_gdal {
 
 	static NAN_METHOD(open)
 	{
-		NanScope();
+		Nan::HandleScope scope;
 
 		std::string path;
 		std::string mode = &quot;r&quot;;
@@ -212,18 +216,20 @@ namespace node_gdal {
 			if (mode == &quot;r+&quot;) {
 				access = GA_Update;
 			} else if (mode != &quot;r&quot;) {
-				NanThrowError(&quot;Invalid open mode. Must be \&quot;r\&quot; or \&quot;r+\&quot;&quot;);
-				NanReturnUndefined();
+				Nan::ThrowError(&quot;Invalid open mode. Must be \&quot;r\&quot; or \&quot;r+\&quot;&quot;);
+				return;
 			}
 
 			OGRDataSource *ogr_ds = OGRSFDriverRegistrar::Open(path.c_str(), static_cast&lt;int&gt;(access));
 			if(ogr_ds) {
-				NanReturnValue(Dataset::New(ogr_ds));
+				info.GetReturnValue().Set(Dataset::New(ogr_ds));
+				return;
 			}
 
 			GDALDataset *gdal_ds = (GDALDataset*) GDALOpen(path.c_str(), access);
 			if(gdal_ds) {
-				NanReturnValue(Dataset::New(gdal_ds));
+				info.GetReturnValue().Set(Dataset::New(gdal_ds));
+				return;
 			}
 		#else
 			unsigned int flags = 0;
@@ -232,53 +238,54 @@ namespace node_gdal {
 			} else if (mode == &quot;r&quot;) {
 				flags |= GDAL_OF_READONLY;
 			} else {
-				NanThrowError(&quot;Invalid open mode. Must be \&quot;r\&quot; or \&quot;r+\&quot;&quot;);
-				NanReturnUndefined();
+				Nan::ThrowError(&quot;Invalid open mode. Must be \&quot;r\&quot; or \&quot;r+\&quot;&quot;);
+				return;
 			}
 
 			GDALDataset *ds = (GDALDataset*) GDALOpenEx(path.c_str(), flags, NULL, NULL, NULL);
 			if(ds) {
-				NanReturnValue(Dataset::New(ds));
+				info.GetReturnValue().Set(Dataset::New(ds));
+				return;
 			}
 		#endif
 
-		NanThrowError(&quot;Error opening dataset&quot;);
-		NanReturnUndefined();
+		Nan::ThrowError(&quot;Error opening dataset&quot;);
+		return;
 	}
 
 	static NAN_METHOD(setConfigOption)
 	{
-		NanScope();
+		Nan::HandleScope scope;
 
 		std::string name;
 
 		NODE_ARG_STR(0, &quot;name&quot;, name);
 
-		if (args.Length() &lt; 2) {
-			NanThrowError(&quot;string or null value must be provided&quot;);
-			NanReturnUndefined();
+		if (info.Length() &lt; 2) {
+			Nan::ThrowError(&quot;string or null value must be provided&quot;);
+			return;
 		}
-		if(args[1]-&gt;IsString()){
-			std::string val = *NanUtf8String(args[1]);
+		if(info[1]-&gt;IsString()){
+			std::string val = *Nan::Utf8String(info[1]);
 			CPLSetConfigOption(name.c_str(), val.c_str());
-		} else if(args[1]-&gt;IsNull() || args[1]-&gt;IsUndefined()) {
+		} else if(info[1]-&gt;IsNull() || info[1]-&gt;IsUndefined()) {
 			CPLSetConfigOption(name.c_str(), NULL);
 		} else {
-			NanThrowError(&quot;value must be a string or null&quot;);
-			NanReturnUndefined();
+			Nan::ThrowError(&quot;value must be a string or null&quot;);
+			return;
 		}
 
-		NanReturnUndefined();
+		return;
 	}
 
 	static NAN_METHOD(getConfigOption)
 	{
-		NanScope();
+		Nan::HandleScope scope;
 
 		std::string name;
 		NODE_ARG_STR(0, &quot;name&quot;, name);
 
-		NanReturnValue(SafeString::New(CPLGetConfigOption(name.c_str(), NULL)));
+		info.GetReturnValue().Set(SafeString::New(CPLGetConfigOption(name.c_str(), NULL)));
 	}
 
 	/**
@@ -293,7 +300,7 @@ namespace node_gdal {
 	 * @return {String} A string nndnn&#x27;nn.nn&#x27;&quot;L where n is a number and L is either N or E
 	 */
 	static NAN_METHOD(decToDMS){
-		NanScope();
+		Nan::HandleScope scope;
 
 		double angle;
 		std::string axis;
@@ -306,11 +313,11 @@ namespace node_gdal {
 			axis[0] = toupper(axis[0]);
 		}
 		if (axis != &quot;Lat&quot; &amp;&amp; axis != &quot;Long&quot;) {
-			NanThrowError(&quot;Axis must be &#x27;lat&#x27; or &#x27;long&#x27;&quot;);
-			NanReturnUndefined();
+			Nan::ThrowError(&quot;Axis must be &#x27;lat&#x27; or &#x27;long&#x27;&quot;);
+			return;
 		}
 
-		NanReturnValue(SafeString::New(GDALDecToDMS(angle, axis.c_str(), precision)));
+		info.GetReturnValue().Set(SafeString::New(GDALDecToDMS(angle, axis.c_str(), precision)));
 	}
 }
 

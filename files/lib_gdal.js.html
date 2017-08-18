@@ -24,22 +24,26 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.6.0</b>
+                    API Docs for Version: <b>0.9.5</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Constants (DCAP)", "classes/Constants (DMD)", "classes/Constants (GCI)", "classes/Constants (GDT)", "classes/Constants (GRA)", "classes/Constants (ODsC)", "classes/Constants (OFT)", "classes/Constants (OJ)", "classes/Constants (OLC)", "classes/Constants (wkbByteOrder)", "classes/Constants (wkbGeometryType)", "classes/Constants (wkbVariant)", "classes/gdal", "classes/gdal.CoordinateTransformation", "classes/gdal.Dataset", "classes/gdal.DatasetBands", "classes/gdal.DatasetLayers", "classes/gdal.Driver", "classes/gdal.Envelope", "classes/gdal.Envelope3D", "classes/gdal.Feature", "classes/gdal.FeatureDefn", "classes/gdal.FeatureDefnFields", "classes/gdal.FeatureFields", "classes/gdal.FieldDefn", "classes/gdal.GDALDrivers", "classes/gdal.Geometry", "classes/gdal.GeometryCollection", "classes/gdal.GeometryCollectionChildren", "classes/gdal.Layer", "classes/gdal.LayerFeatures", "classes/gdal.LayerFields", "classes/gdal.LinearRing", "classes/gdal.LineString", "classes/gdal.LineStringPoints", "classes/gdal.MultiLineString", "classes/gdal.MultiPoint", "classes/gdal.MultiPolygon", "classes/gdal.Point", "classes/gdal.Polygon", "classes/gdal.PolygonRings", "classes/gdal.RasterBand", "classes/gdal.RasterBandOverviews", "classes/gdal.RasterBandPixels", "classes/gdal.SpatialReference"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Constants (CPL Error Codes)", "classes/Constants (CPL Error Levels)", "classes/Constants (DCAP)", "classes/Constants (DMD)", "classes/Constants (GCI)", "classes/Constants (GDT)", "classes/Constants (GRA)", "classes/Constants (ODsC)", "classes/Constants (OFT)", "classes/Constants (OJ)", "classes/Constants (OLC)", "classes/Constants (wkbByteOrder)", "classes/Constants (wkbGeometryType)", "classes/Constants (wkbVariant)", "classes/gdal", "classes/gdal.CoordinateTransformation", "classes/gdal.Dataset", "classes/gdal.DatasetBands", "classes/gdal.DatasetLayers", "classes/gdal.Driver", "classes/gdal.Envelope", "classes/gdal.Envelope3D", "classes/gdal.Feature", "classes/gdal.FeatureDefn", "classes/gdal.FeatureDefnFields", "classes/gdal.FeatureFields", "classes/gdal.FieldDefn", "classes/gdal.GDALDrivers", "classes/gdal.Geometry", "classes/gdal.GeometryCollection", "classes/gdal.GeometryCollectionChildren", "classes/gdal.Layer", "classes/gdal.LayerFeatures", "classes/gdal.LayerFields", "classes/gdal.LinearRing", "classes/gdal.LineString", "classes/gdal.LineStringPoints", "classes/gdal.MultiLineString", "classes/gdal.MultiPoint", "classes/gdal.MultiPolygon", "classes/gdal.Point", "classes/gdal.Polygon", "classes/gdal.PolygonRings", "classes/gdal.RasterBand", "classes/gdal.RasterBandOverviews", "classes/gdal.RasterBandPixels", "classes/gdal.SpatialReference"]'>
         </form>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="span3">
-	    <div>
+<div>
     <div id="sidebar">
     <div id="classes">
         <ul id="api-classes" class="nav nav-list">
+            
+                <li><a href="../classes/Constants (CPL Error Codes).html">Constants (CPL Error Codes)</a></li>
+            
+                <li><a href="../classes/Constants (CPL Error Levels).html">Constants (CPL Error Levels)</a></li>
             
                 <li><a href="../classes/Constants (DCAP).html">Constants (DCAP)</a></li>
             
@@ -138,7 +142,7 @@
 
         </div>
         <div class="span9">
-                <form id="options-form" class="form-inline pull-right">
+    <form id="options-form" class="form-inline pull-right">
         Show:
         <label for="api-show-inherited" class="checkbox">
             <input type="checkbox" id="api-show-inherited" checked>
@@ -165,19 +169,24 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <div class="page-header">
+<div class="page-header">
     <h1>lib/gdal.js <small>File</small></h1>
 </div>
 
 <div class="file">
     <pre class="prettyprint linenums">
+/* eslint no-console: 0 */
 var path         = require(&#x27;path&#x27;);
-var pkg          = require(&#x27;../package.json&#x27;);
-var binding_path = path.join(__dirname, &#x27;../&#x27;, pkg.binary.module_path);
-var module_path  = path.join(binding_path, pkg.binary.module_name + &#x27;.node&#x27;);
+var fs           = require(&#x27;fs&#x27;);
+var binary       = require(&#x27;node-pre-gyp&#x27;);
+var binding_path = binary.find(path.join(__dirname, &#x27;../package.json&#x27;));
 var data_path    = path.resolve(__dirname, &#x27;../deps/libgdal/gdal/data&#x27;);
 
-var gdal = module.exports = require(module_path);
+if (process.env.GDAL_DATA === undefined &amp;&amp; !fs.existsSync(data_path)) {
+	throw new Error(&quot;The bundled data path for node-gdal is missing &#x27;&quot; + data_path + &quot;&#x27; and GDAL_DATA environment is not set&quot;);
+}
+
+var gdal = module.exports = require(binding_path);
 
 gdal.Point.Multi      = gdal.MultiPoint;
 gdal.LineString.Multi = gdal.MultiLineString;
@@ -222,7 +231,9 @@ gdal.config.set = gdal.setConfigOption;
 delete gdal.getConfigOption;
 delete gdal.setConfigOption;
 
-gdal.config.set(&#x27;GDAL_DATA&#x27;, data_path);
+if (process.env.GDAL_DATA === undefined) {
+	gdal.config.set(&#x27;GDAL_DATA&#x27;, data_path);
+}
 
 gdal.Envelope = require(&#x27;./envelope.js&#x27;)(gdal);
 gdal.Envelope3D = require(&#x27;./envelope_3d.js&#x27;)(gdal);
@@ -247,16 +258,24 @@ gdal.Layer.prototype.getExtent = function() {
 
 // --- add additional functionality to collections ---
 
-function defaultForEach(iterator) {
+function defaultForEach(callback) {
 	var n = this.count();
 	for (var i = 0; i &lt; n; i++) {
-		if (iterator(this.get(i)) === false) return;
+		if (callback(this.get(i), i) === false) return;
 	}
+}
+
+function defaultMap(callback) {
+	var result = [];
+	this.forEach(function(value, i) {
+		result.push(callback(value, i));
+	});
+	return result;
 }
 
 function defaultToArray() {
 	var array = [];
-	this.forEach(function(geom){
+	this.forEach(function(geom) {
 		array.push(geom);
 	});
 	return array;
@@ -264,40 +283,74 @@ function defaultToArray() {
 
 /**
  * Iterates through all bands using a callback function.
+ * Note: GDAL band indexes start at 1, not 0.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * dataset.bands.forEach(function(band) { ... });&#x60;&#x60;&#x60;
+ * dataset.bands.forEach(function(band, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.DatasetBands
  * @method forEach
- * @param {Function} iterator The callback to be called with each {{#crossLink &quot;gdal.RasterBand&quot;}}RasterBand{{/crossLink}}
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.RasterBand&quot;}}RasterBand{{/crossLink}}
  */
-gdal.DatasetBands.prototype.forEach = function(iterator) {
+gdal.DatasetBands.prototype.forEach = function(callback) {
 	var n = this.count();
 	for (var i = 1; i &lt;= n; i++) {
-		if (iterator(this.get(i)) === false) return;
+		if (callback(this.get(i), i) === false) return;
 	}
 };
+
+/**
+ * Iterates through all bands using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = dataset.bands.map(function(band, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.DatasetBands
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.RasterBand&quot;}}RasterBand{{/crossLink}}
+ */
+gdal.DatasetBands.prototype.map = defaultMap;
 
 /**
  * Iterates through all features using a callback function.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * layer.features.forEach(function(features) { ... });&#x60;&#x60;&#x60;
+ * layer.features.forEach(function(feature, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.LayerFeatures
  * @method forEach
- * @param {Function} iterator The callback to be called with each {{#crossLink &quot;gdal.Feature&quot;}}Feature{{/crossLink}}
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Feature&quot;}}Feature{{/crossLink}}
  */
-gdal.LayerFeatures.prototype.forEach = function(iterator) {
+gdal.LayerFeatures.prototype.forEach = function(callback) {
+	var i = 0;
 	var feature = this.first();
 	while (feature) {
-		if (iterator(feature) === false) return;
+		if (callback(feature, i++) === false) return;
 		feature = this.next();
 	}
 };
+
+/**
+ * Iterates through all features using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = layer.features.map(function(band, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.LayerFeatures
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Feature&quot;}}Feature{{/crossLink}}
+ */
+gdal.LayerFeatures.prototype.map = defaultMap;
 
 /**
  * Iterates through all fields using a callback function.
@@ -308,18 +361,34 @@ gdal.LayerFeatures.prototype.forEach = function(iterator) {
  *
  * @for gdal.FeatureFields
  * @method forEach
- * @param {Function} iterator The callback to be called with each feature &#x60;value&#x60; and &#x60;key&#x60;.
+ * @param {Function} callback The callback to be called with each feature &#x60;value&#x60; and &#x60;key&#x60;.
  */
-gdal.FeatureFields.prototype.forEach = function(iterator) {
+gdal.FeatureFields.prototype.forEach = function(callback) {
 	var obj = this.toObject();
 	var names = Object.keys(obj);
 	var n = names.length;
 	for (var i = 0; i &lt; n; i++) {
 		var key = names[i];
 		var value = obj[key];
-		if (iterator(value, key) === false) return;
+		if (callback(value, key) === false) return;
 	}
 };
+
+/**
+ * Iterates through all fields using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = layer.features.get(0).fields.map(function(value, key) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.FeatureFields
+ * @method map
+ * @param {Function} callback The callback to be called with each feature &#x60;value&#x60; and &#x60;key&#x60;.
+ */
+gdal.FeatureFields.prototype.map = defaultMap;
 
 /**
  * Outputs the fields as a serialized JSON string.
@@ -344,97 +413,236 @@ gdal.Geometry.prototype.toObject = function() {
 };
 
 /**
- * Iterates through all fields using a callback function.
+ * Iterates through all field definitions using a callback function.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * layer.fields.forEach(function(field) { ... });&#x60;&#x60;&#x60;
+ * layer.fields.forEach(function(field, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.LayerFields
  * @method forEach
- * @param {Function} iterator The callback to be called with each {{#crossLink &quot;gdal.FieldDefn&quot;}}FieldDefn{{/crossLink}}
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.FieldDefn&quot;}}FieldDefn{{/crossLink}}
  */
 gdal.LayerFields.prototype.forEach = defaultForEach;
+
+/**
+ * Iterates through all field definitions using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = layer.fields.map(function(field, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.LayerFields
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.FieldDefn&quot;}}FieldDefn{{/crossLink}}
+ */
+gdal.LayerFields.prototype.map = defaultMap;
 
 /**
  * Iterates through all layers using a callback function.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * dataset.layers.forEach(function(layer) { ... });&#x60;&#x60;&#x60;
+ * dataset.layers.forEach(function(layer, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.DatasetLayers
  * @method forEach
- * @param {Function} iterator The callback to be called with each {{#crossLink &quot;gdal.Layer&quot;}}Layer{{/crossLink}}
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Layer&quot;}}Layer{{/crossLink}}
  */
 gdal.DatasetLayers.prototype.forEach = defaultForEach;
 
 /**
- * Iterates through all fields using a callback function.
+ * Iterates through all layers using a callback function and builds
+ * an array of the returned values.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * featureDefn.forEach(function(field) { ... });&#x60;&#x60;&#x60;
+ * var result = dataset.layers.map(function(field, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.DatasetLayers
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Layer&quot;}}Layer{{/crossLink}}
+ */
+gdal.DatasetLayers.prototype.map = defaultMap;
+
+/**
+ * Iterates through all field definitions using a callback function.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * featureDefn.forEach(function(field, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.FeatureDefnFields
  * @method forEach
- * @param {Function} iterator The callback to be called with each {{#crossLink &quot;gdal.FieldDefn&quot;}}FieldDefn{{/crossLink}}
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.FieldDefn&quot;}}FieldDefn{{/crossLink}}
  */
 gdal.FeatureDefnFields.prototype.forEach = defaultForEach;
+
+/**
+ * Iterates through all field definitions using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = dataset.layers.map(function(field, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.FeatureDefnFields
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.FieldDefn&quot;}}FieldDefn{{/crossLink}}
+ */
+gdal.FeatureDefnFields.prototype.map = defaultMap;
 
 /**
  * Iterates through all rings using a callback function.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * polygon.rings.forEach(function(ring) { ... });&#x60;&#x60;&#x60;
+ * polygon.rings.forEach(function(ring, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.PolygonRings
  * @method forEach
- * @param {Function} iterator The callback to be called with each {{#crossLink &quot;gdal.LineString&quot;}}LineString{{/crossLink}}
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.LineString&quot;}}LineString{{/crossLink}}
  */
 gdal.PolygonRings.prototype.forEach = defaultForEach;
+
+/**
+ * Iterates through all rings using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = polygon.rings.map(function(ring, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.LineStringPoints
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.LineString&quot;}}LineString{{/crossLink}}
+ */
+gdal.PolygonRings.prototype.map = defaultMap;
 
 /**
  * Iterates through all points using a callback function.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * lineString.points.forEach(function(point) { ... });&#x60;&#x60;&#x60;
+ * lineString.points.forEach(function(point, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.LineStringPoints
  * @method forEach
- * @param {Function} iterator The callback to be called with each {{#crossLink &quot;gdal.Point&quot;}}Point{{/crossLink}}
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Point&quot;}}Point{{/crossLink}}
  */
 gdal.LineStringPoints.prototype.forEach = defaultForEach;
+
+/**
+ * Iterates through all points using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = lineString.points.map(function(point, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.LineStringPoints
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Point&quot;}}Point{{/crossLink}}
+ */
+gdal.LineStringPoints.prototype.map = defaultMap;
 
 /**
  * Iterates through all child geometries using a callback function.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * geometryCollection.children.forEach(function(geometry) { ... });&#x60;&#x60;&#x60;
+ * geometryCollection.children.forEach(function(geometry, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.GeometryCollectionChildren
  * @method forEach
- * @param {Function} iterator The callback to be called with each {{#crossLink &quot;gdal.Geometry&quot;}}Geometry{{/crossLink}}
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Geometry&quot;}}Geometry{{/crossLink}}
  */
 gdal.GeometryCollectionChildren.prototype.forEach = defaultForEach;
+
+/**
+ * Iterates through all child geometries using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = geometryCollection.children.map(function(geometry, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.GeometryCollectionChildren
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Geometry&quot;}}Geometry{{/crossLink}}
+ */
+gdal.GeometryCollectionChildren.prototype.map = defaultMap;
 
 /**
  * Iterates through all overviews using a callback function.
  *
  * @example
  * &#x60;&#x60;&#x60;
- * band.overviews.forEach(function(overviewBand) { ... });&#x60;&#x60;&#x60;
+ * band.overviews.forEach(function(overviewBand, i) { ... });&#x60;&#x60;&#x60;
  *
  * @for gdal.RasterBandOverviews
  * @method forEach
- * @param {Function} iterator
+ * @param {Function} callback
  */
 gdal.RasterBandOverviews.prototype.forEach = defaultForEach;
 
+/**
+ * Iterates through all raster overviews using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = band.overviews.map(function(overviewBand, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.RasterBandOverviews
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Geometry&quot;}}Geometry{{/crossLink}}
+ */
+gdal.RasterBandOverviews.prototype.map = defaultMap;
+
+/**
+ * Iterates through all registered drivers using a callback function.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * gdal.drivers.forEach(function(driver, i) { ... });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.GDALDrivers
+ * @method forEach
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Driver&quot;}}Driver{{/crossLink}}
+ */
 gdal.GDALDrivers.prototype.forEach = defaultForEach;
+
+/**
+ * Iterates through all drivers using a callback function and builds
+ * an array of the returned values.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * var result = gdal.drivers.map(function(driver, i) {
+ *     return value;
+ * });&#x60;&#x60;&#x60;
+ *
+ * @for gdal.GDALDrivers
+ * @method map
+ * @param {Function} callback The callback to be called with each {{#crossLink &quot;gdal.Driver&quot;}}Driver{{/crossLink}}
+ */
+gdal.GDALDrivers.prototype.map = defaultMap;
 
 /**
  * Outputs all geometries as a regular javascript array.
@@ -464,7 +672,7 @@ gdal.LineStringPoints.prototype.toArray = defaultToArray;
 gdal.PolygonRings.prototype.toArray = defaultToArray;
 
 /**
- * Creates or opens a dataset. Dataset should be explicitly closed with &#x60;dataset.close()&#x60; method if opened in &#x60;&quot;w&quot;&#x60; mode to flush any changes. Otherwise, datasets are closed when (and if) node decides to garbage collect them.   
+ * Creates or opens a dataset. Dataset should be explicitly closed with &#x60;dataset.close()&#x60; method if opened in &#x60;&quot;w&quot;&#x60; mode to flush any changes. Otherwise, datasets are closed when (and if) node decides to garbage collect them.
  *
  * @example
  * &#x60;&#x60;&#x60;
@@ -490,61 +698,62 @@ gdal.open = (function() {
 	var open = gdal.open;
 
 	// add &#x27;w&#x27; mode to gdal.open() method and also GDAL2-style driver selection
-	return function(filename, mode, drivers, x_size, y_size, n_bands, datatype, options) {
+	return function(filename, mode, drivers/* , x_size, y_size, n_bands, datatype, options */) {
 		if (typeof drivers === &#x27;string&#x27;) {
 			drivers = [drivers];
 		} else if (drivers &amp;&amp; !Array.isArray(drivers)) {
-			throw new Error(&#x27;driver(s) must be a string or list of strings&#x27;)
+			throw new Error(&#x27;driver(s) must be a string or list of strings&#x27;);
 		}
 
 		if (mode === &#x27;w&#x27;) {
 			// create file with given driver
 			if (!drivers) {
-				throw new Error(&quot;Driver must be specified&quot;);
+				throw new Error(&#x27;Driver must be specified&#x27;);
 			}
 			if (drivers.length !== 1) {
-				throw new Error(&quot;Only one driver can be used to create a file&quot;);
+				throw new Error(&#x27;Only one driver can be used to create a file&#x27;);
 			}
 			var driver = gdal.drivers.get(drivers[0]);
 			if (!driver) {
-				throw new Error(&quot;Cannot find driver: &quot;+drivers[0]);
+				throw new Error(&#x27;Cannot find driver: &#x27; + drivers[0]);
 			}
 
 			var args = Array.prototype.slice.call(arguments, 3); // x_size, y_size, ...
 			args.unshift(filename);
-		 	return driver.create.apply(driver, args);
-		} else {
-			if (arguments.length &gt; 2) {
-				// open file with driver list
-				// loop through given drivers trying to open file
-				var ds;
-				drivers.forEach(function(driver_name, i){
-					var driver = gdal.drivers.get(driver_name);
-					if (!driver) {
-						throw new Error(&quot;Cannot find driver: &quot;+driver_name);
-					}
-					try {
-						ds = driver.open(filename, mode);
-						return false;
-					} catch (err) { }
-				});
-
-				if (!ds) throw new Error(&quot;Error opening dataset&quot;);
-				return ds;
-
-			} else {
-				// call gdal.open() method normally
-				return open.apply(gdal, arguments);
-			}
+			return driver.create.apply(driver, args);
 		}
-	}
+
+		if (arguments.length &gt; 2) {
+			// open file with driver list
+			// loop through given drivers trying to open file
+			var ds;
+			drivers.forEach(function(driver_name) {
+				var driver = gdal.drivers.get(driver_name);
+				if (!driver) {
+					throw new Error(&#x27;Cannot find driver: &#x27; + driver_name);
+				}
+				try {
+					ds = driver.open(filename, mode);
+					return false;
+				} catch (err) {
+					/* skip driver */
+				}
+			});
+
+			if (!ds) throw new Error(&#x27;Error opening dataset&#x27;);
+			return ds;
+		}
+
+		// call gdal.open() method normally
+		return open.apply(gdal, arguments);
+	};
 })();
 
 function fieldTypeFromValue(val) {
 	var type = typeof val;
 	if (type === &#x27;number&#x27;) {
-		if(val % 1 === 0) return gdal.OFTInteger;
-		else return gdal.OFTReal;
+		if (val % 1 === 0) return gdal.OFTInteger;
+		return gdal.OFTReal;
 	} else if (type === &#x27;string&#x27;) {
 		return gdal.OFTString;
 	} else if (type === &#x27;boolean&#x27;) {
@@ -557,13 +766,13 @@ function fieldTypeFromValue(val) {
 			case gdal.OFTString : return gdal.OFTStringList;
 			case gdal.OFTInteger : return gdal.OFTIntegerList;
 			case gdal.OFTReal : return gdal.OFTRealList;
-			default : throw new Error(&quot;Array element cannot be converted into OGRFieldType&quot;);
+			default : throw new Error(&#x27;Array element cannot be converted into OGRFieldType&#x27;);
 		}
 	} else if (val instanceof Buffer) {
 		return gdal.OFTBinary;
-	} else {
-		throw new Error(&quot;Value cannot be converted into OGRFieldType&quot;);
 	}
+
+	throw new Error(&#x27;Value cannot be converted into OGRFieldType&#x27;);
 }
 
 /**
@@ -574,11 +783,19 @@ function fieldTypeFromValue(val) {
  * @param {Object} object
  * @param {Boolean} [approx_ok=false]
  */
-gdal.LayerFields.prototype.fromJSON = function(obj, approx_ok) {
-	// TODO: rename to &#x60;fromObject&#x60;
-	if (arguments.length &lt; 2) {
-		approx_ok = false;
-	}
+gdal.LayerFields.prototype.fromJSON = (function() {
+	var warned = false;
+	return function(obj, approx_ok) {
+		if (!warned) {
+			console.warn(&#x27;NODE-GDAL Deprecation Warning: LayerFields fromJSON() is deprecated, use fromObject() instead&#x27;);
+			warned = true;
+		}
+		return this.fromObject(obj, approx_ok);
+	};
+})();
+
+gdal.LayerFields.prototype.fromObject = function(obj, approx_ok) {
+	approx_ok = approx_ok || false;
 	var field_names = Object.keys(obj);
 	for (var i = 0; i &lt; field_names.length; i++) {
 		var name  = field_names[i];
@@ -601,7 +818,7 @@ gdal.GeometryCollection.wkbType  = gdal.wkbGeometryCollection;
 // enable passing geometry constructors as the geometry type
 gdal.DatasetLayers.prototype.create = (function() {
 	var create = gdal.DatasetLayers.prototype.create;
-	return function(name, srs, geom_type, creation_options) {
+	return function(name, srs, geom_type/* , creation_options */) {
 		if (arguments.length &gt; 2 &amp;&amp; geom_type instanceof Function) {
 			if (typeof geom_type.wkbType === &#x27;undefined&#x27;) {
 				throw new Error(&#x27;Function must be a geometry constructor&#x27;);
@@ -612,10 +829,23 @@ gdal.DatasetLayers.prototype.create = (function() {
 	};
 })();
 
+function getTypedArrayType(array) {
+	if (array instanceof Uint8Array)   return 1; // gdal.GDT_Byte
+	if (array instanceof Int8Array)    return 1; // gdal.GDT_Byte
+	if (array instanceof Int16Array)   return 3; // gdal.GDT_Int16
+	if (array instanceof Uint16Array)  return 2; // gdal.GDT_UInt16
+	if (array instanceof Int32Array)   return 5; // gdal.GDT_Int32
+	if (array instanceof Uint32Array)  return 4; // gdal.GDT_UInt32
+	if (array instanceof Float32Array) return 6; // gdal.GDT_Float32
+	if (array instanceof Float64Array) return 7; // gdal.GDT_Float64
+	return 0; // gdal.GDT_Unknown
+}
+
 gdal.RasterBandPixels.prototype.read = (function() {
 	var read = gdal.RasterBandPixels.prototype.read;
 	return function(x, y, width, height, data, options) {
 		if (!options) options = {};
+		if (data) data._gdal_type = getTypedArrayType(data);
 		return read.apply(this, [x, y, width, height, data, options.buffer_width, options.buffer_height, options.type, options.pixel_space, options.line_space]);
 	};
 })();
@@ -624,9 +854,27 @@ gdal.RasterBandPixels.prototype.write = (function() {
 	var write = gdal.RasterBandPixels.prototype.write;
 	return function(x, y, width, height, data, options) {
 		if (!options) options = {};
+		if (data) data._gdal_type = getTypedArrayType(data);
 		return write.apply(this, [x, y, width, height, data, options.buffer_width, options.buffer_height, options.pixel_space, options.line_space]);
 	};
 })();
+
+gdal.RasterBandPixels.prototype.readBlock = (function() {
+	var readBlock = gdal.RasterBandPixels.prototype.readBlock;
+	return function(x, y, data) {
+		if (data) data._gdal_type = getTypedArrayType(data);
+		return readBlock.apply(this, arguments);
+	};
+})();
+
+gdal.RasterBandPixels.prototype.writeBlock = (function() {
+	var writeBlock = gdal.RasterBandPixels.prototype.writeBlock;
+	return function(x, y, data) {
+		data._gdal_type = getTypedArrayType(data);
+		return writeBlock.apply(this, arguments);
+	};
+})();
+
     </pre>
 </div>
 

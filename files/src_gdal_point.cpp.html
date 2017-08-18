@@ -24,22 +24,26 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.6.0</b>
+                    API Docs for Version: <b>0.9.5</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Constants (DCAP)", "classes/Constants (DMD)", "classes/Constants (GCI)", "classes/Constants (GDT)", "classes/Constants (GRA)", "classes/Constants (ODsC)", "classes/Constants (OFT)", "classes/Constants (OJ)", "classes/Constants (OLC)", "classes/Constants (wkbByteOrder)", "classes/Constants (wkbGeometryType)", "classes/Constants (wkbVariant)", "classes/gdal", "classes/gdal.CoordinateTransformation", "classes/gdal.Dataset", "classes/gdal.DatasetBands", "classes/gdal.DatasetLayers", "classes/gdal.Driver", "classes/gdal.Envelope", "classes/gdal.Envelope3D", "classes/gdal.Feature", "classes/gdal.FeatureDefn", "classes/gdal.FeatureDefnFields", "classes/gdal.FeatureFields", "classes/gdal.FieldDefn", "classes/gdal.GDALDrivers", "classes/gdal.Geometry", "classes/gdal.GeometryCollection", "classes/gdal.GeometryCollectionChildren", "classes/gdal.Layer", "classes/gdal.LayerFeatures", "classes/gdal.LayerFields", "classes/gdal.LinearRing", "classes/gdal.LineString", "classes/gdal.LineStringPoints", "classes/gdal.MultiLineString", "classes/gdal.MultiPoint", "classes/gdal.MultiPolygon", "classes/gdal.Point", "classes/gdal.Polygon", "classes/gdal.PolygonRings", "classes/gdal.RasterBand", "classes/gdal.RasterBandOverviews", "classes/gdal.RasterBandPixels", "classes/gdal.SpatialReference"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Constants (CPL Error Codes)", "classes/Constants (CPL Error Levels)", "classes/Constants (DCAP)", "classes/Constants (DMD)", "classes/Constants (GCI)", "classes/Constants (GDT)", "classes/Constants (GRA)", "classes/Constants (ODsC)", "classes/Constants (OFT)", "classes/Constants (OJ)", "classes/Constants (OLC)", "classes/Constants (wkbByteOrder)", "classes/Constants (wkbGeometryType)", "classes/Constants (wkbVariant)", "classes/gdal", "classes/gdal.CoordinateTransformation", "classes/gdal.Dataset", "classes/gdal.DatasetBands", "classes/gdal.DatasetLayers", "classes/gdal.Driver", "classes/gdal.Envelope", "classes/gdal.Envelope3D", "classes/gdal.Feature", "classes/gdal.FeatureDefn", "classes/gdal.FeatureDefnFields", "classes/gdal.FeatureFields", "classes/gdal.FieldDefn", "classes/gdal.GDALDrivers", "classes/gdal.Geometry", "classes/gdal.GeometryCollection", "classes/gdal.GeometryCollectionChildren", "classes/gdal.Layer", "classes/gdal.LayerFeatures", "classes/gdal.LayerFields", "classes/gdal.LinearRing", "classes/gdal.LineString", "classes/gdal.LineStringPoints", "classes/gdal.MultiLineString", "classes/gdal.MultiPoint", "classes/gdal.MultiPolygon", "classes/gdal.Point", "classes/gdal.Polygon", "classes/gdal.PolygonRings", "classes/gdal.RasterBand", "classes/gdal.RasterBandOverviews", "classes/gdal.RasterBandPixels", "classes/gdal.SpatialReference"]'>
         </form>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="span3">
-	    <div>
+<div>
     <div id="sidebar">
     <div id="classes">
         <ul id="api-classes" class="nav nav-list">
+            
+                <li><a href="../classes/Constants (CPL Error Codes).html">Constants (CPL Error Codes)</a></li>
+            
+                <li><a href="../classes/Constants (CPL Error Levels).html">Constants (CPL Error Levels)</a></li>
             
                 <li><a href="../classes/Constants (DCAP).html">Constants (DCAP)</a></li>
             
@@ -138,7 +142,7 @@
 
         </div>
         <div class="span9">
-                <form id="options-form" class="form-inline pull-right">
+    <form id="options-form" class="form-inline pull-right">
         Show:
         <label for="api-show-inherited" class="checkbox">
             <input type="checkbox" id="api-show-inherited" checked>
@@ -165,7 +169,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <div class="page-header">
+<div class="page-header">
     <h1>src/gdal_point.cpp <small>File</small></h1>
 </div>
 
@@ -179,31 +183,31 @@
 
 namespace node_gdal {
 
-Persistent&lt;FunctionTemplate&gt; Point::constructor;
+Nan::Persistent&lt;FunctionTemplate&gt; Point::constructor;
 
-void Point::Initialize(Handle&lt;Object&gt; target)
+void Point::Initialize(Local&lt;Object&gt; target)
 {
-	NanScope();
+	Nan::HandleScope scope;
 
-	Local&lt;FunctionTemplate&gt; lcons = NanNew&lt;FunctionTemplate&gt;(Point::New);
-	lcons-&gt;Inherit(NanNew(Geometry::constructor));
+	Local&lt;FunctionTemplate&gt; lcons = Nan::New&lt;FunctionTemplate&gt;(Point::New);
+	lcons-&gt;Inherit(Nan::New(Geometry::constructor));
 	lcons-&gt;InstanceTemplate()-&gt;SetInternalFieldCount(1);
-	lcons-&gt;SetClassName(NanNew(&quot;Point&quot;));
+	lcons-&gt;SetClassName(Nan::New(&quot;Point&quot;).ToLocalChecked());
 
-	NODE_SET_PROTOTYPE_METHOD(lcons, &quot;toString&quot;, toString);
+	Nan::SetPrototypeMethod(lcons, &quot;toString&quot;, toString);
 
 	// properties
 	ATTR(lcons, &quot;x&quot;, xGetter, xSetter);
 	ATTR(lcons, &quot;y&quot;, yGetter, ySetter);
 	ATTR(lcons, &quot;z&quot;, zGetter, zSetter);
 
-	target-&gt;Set(NanNew(&quot;Point&quot;), lcons-&gt;GetFunction());
+	target-&gt;Set(Nan::New(&quot;Point&quot;).ToLocalChecked(), lcons-&gt;GetFunction());
 
-	NanAssignPersistent(constructor, lcons);
+	constructor.Reset(lcons);
 }
 
 Point::Point(OGRPoint *geom)
-	: ObjectWrap(),
+	: Nan::ObjectWrap(),
 	  this_(geom),
 	  owned_(true),
 	  size_(0)
@@ -212,7 +216,7 @@ Point::Point(OGRPoint *geom)
 }
 
 Point::Point()
-	: ObjectWrap(),
+	: Nan::ObjectWrap(),
 	  this_(NULL),
 	  owned_(true),
 	  size_(0)
@@ -226,7 +230,7 @@ Point::~Point()
 		LOG(&quot;Disposing Point [%p] (%s)&quot;, this_, owned_ ? &quot;owned&quot; : &quot;unowned&quot;);
 		if (owned_) {
 			OGRGeometryFactory::destroyGeometry(this_);
-			NanAdjustExternalMemory(-size_);
+			Nan::AdjustExternalMemory(-size_);
 		}
 		LOG(&quot;Disposed Point [%p]&quot;, this_);
 		this_ = NULL;
@@ -245,18 +249,18 @@ Point::~Point()
  */
 NAN_METHOD(Point::New)
 {
-	NanScope();
+	Nan::HandleScope scope;
 	Point *f;
 	OGRPoint *geom;
 	double x = 0, y = 0, z = 0;
 
-	if (!args.IsConstructCall()) {
-		NanThrowError(&quot;Cannot call constructor as function, you need to use &#x27;new&#x27; keyword&quot;);
-		NanReturnUndefined();
+	if (!info.IsConstructCall()) {
+		Nan::ThrowError(&quot;Cannot call constructor as function, you need to use &#x27;new&#x27; keyword&quot;);
+		return;
 	}
 
-	if (args[0]-&gt;IsExternal()) {
-		Local&lt;External&gt; ext = args[0].As&lt;External&gt;();
+	if (info[0]-&gt;IsExternal()) {
+		Local&lt;External&gt; ext = info[0].As&lt;External&gt;();
 		void* ptr = ext-&gt;Value();
 		f = static_cast&lt;Point *&gt;(ptr);
 
@@ -265,12 +269,12 @@ NAN_METHOD(Point::New)
 		NODE_ARG_DOUBLE_OPT(1, &quot;y&quot;, y);
 		NODE_ARG_DOUBLE_OPT(2, &quot;z&quot;, z);
 
-		if (args.Length() == 1) {
-			NanThrowError(&quot;Point constructor must be given 0, 2, or 3 arguments&quot;);
-			NanReturnUndefined();
+		if (info.Length() == 1) {
+			Nan::ThrowError(&quot;Point constructor must be given 0, 2, or 3 arguments&quot;);
+			return;
 		}
 
-		if (args.Length() == 3) {
+		if (info.Length() == 3) {
 			geom = new OGRPoint(x, y, z);
 		} else {
 			geom = new OGRPoint(x, y);
@@ -279,22 +283,22 @@ NAN_METHOD(Point::New)
 		f = new Point(geom);
 	}
 
-	f-&gt;Wrap(args.This());
-	NanReturnValue(args.This());
+	f-&gt;Wrap(info.This());
+	info.GetReturnValue().Set(info.This());
 }
 
-Handle&lt;Value&gt; Point::New(OGRPoint *geom)
+Local&lt;Value&gt; Point::New(OGRPoint *geom)
 {
-	NanEscapableScope();
-	return NanEscapeScope(Point::New(geom, true));
+	Nan::EscapableHandleScope scope;
+	return scope.Escape(Point::New(geom, true));
 }
 
-Handle&lt;Value&gt; Point::New(OGRPoint *geom, bool owned)
+Local&lt;Value&gt; Point::New(OGRPoint *geom, bool owned)
 {
-	NanEscapableScope();
+	Nan::EscapableHandleScope scope;
 
 	if (!geom) {
-		return NanEscapeScope(NanNull());
+		return scope.Escape(Nan::Null());
 	}
 
 	//make a copy of geometry owned by a feature
@@ -311,16 +315,16 @@ Handle&lt;Value&gt; Point::New(OGRPoint *geom, bool owned)
 
 	UPDATE_AMOUNT_OF_GEOMETRY_MEMORY(wrapped);
 
-	Handle&lt;Value&gt; ext = NanNew&lt;External&gt;(wrapped);
-	Handle&lt;Object&gt; obj = NanNew(Point::constructor)-&gt;GetFunction()-&gt;NewInstance(1, &amp;ext);
+	Local&lt;Value&gt; ext = Nan::New&lt;External&gt;(wrapped);
+	Local&lt;Object&gt; obj = Nan::New(Point::constructor)-&gt;GetFunction()-&gt;NewInstance(1, &amp;ext);
 
-	return NanEscapeScope(obj);
+	return scope.Escape(obj);
 }
 
 NAN_METHOD(Point::toString)
 {
-	NanScope();
-	NanReturnValue(NanNew(&quot;Point&quot;));
+	Nan::HandleScope scope;
+	info.GetReturnValue().Set(Nan::New(&quot;Point&quot;).ToLocalChecked());
 }
 
 /**
@@ -329,18 +333,18 @@ NAN_METHOD(Point::toString)
  */
 NAN_GETTER(Point::xGetter)
 {
-	NanScope();
-	Point *geom = ObjectWrap::Unwrap&lt;Point&gt;(args.This());
-	NanReturnValue(NanNew&lt;Number&gt;((geom-&gt;this_)-&gt;getX()));
+	Nan::HandleScope scope;
+	Point *geom = Nan::ObjectWrap::Unwrap&lt;Point&gt;(info.This());
+	info.GetReturnValue().Set(Nan::New&lt;Number&gt;((geom-&gt;this_)-&gt;getX()));
 }
 
 NAN_SETTER(Point::xSetter)
 {
-	NanScope();
-	Point *geom = ObjectWrap::Unwrap&lt;Point&gt;(args.This());
+	Nan::HandleScope scope;
+	Point *geom = Nan::ObjectWrap::Unwrap&lt;Point&gt;(info.This());
 
 	if (!value-&gt;IsNumber()) {
-		NanThrowError(&quot;y must be a number&quot;);
+		Nan::ThrowError(&quot;y must be a number&quot;);
 		return;
 	}
 	double x = value-&gt;NumberValue();
@@ -354,18 +358,18 @@ NAN_SETTER(Point::xSetter)
  */
 NAN_GETTER(Point::yGetter)
 {
-	NanScope();
-	Point *geom = ObjectWrap::Unwrap&lt;Point&gt;(args.This());
-	NanReturnValue(NanNew&lt;Number&gt;((geom-&gt;this_)-&gt;getY()));
+	Nan::HandleScope scope;
+	Point *geom = Nan::ObjectWrap::Unwrap&lt;Point&gt;(info.This());
+	info.GetReturnValue().Set(Nan::New&lt;Number&gt;((geom-&gt;this_)-&gt;getY()));
 }
 
 NAN_SETTER(Point::ySetter)
 {
-	NanScope();
-	Point *geom = ObjectWrap::Unwrap&lt;Point&gt;(args.This());
+	Nan::HandleScope scope;
+	Point *geom = Nan::ObjectWrap::Unwrap&lt;Point&gt;(info.This());
 
 	if (!value-&gt;IsNumber()) {
-		NanThrowError(&quot;y must be a number&quot;);
+		Nan::ThrowError(&quot;y must be a number&quot;);
 		return;
 	}
 	double y = value-&gt;NumberValue();
@@ -379,17 +383,17 @@ NAN_SETTER(Point::ySetter)
  */
 NAN_GETTER(Point::zGetter)
 {
-	NanScope();
-	Point *geom = ObjectWrap::Unwrap&lt;Point&gt;(args.This());
-	NanReturnValue(NanNew&lt;Number&gt;((geom-&gt;this_)-&gt;getZ()));
+	Nan::HandleScope scope;
+	Point *geom = Nan::ObjectWrap::Unwrap&lt;Point&gt;(info.This());
+	info.GetReturnValue().Set(Nan::New&lt;Number&gt;((geom-&gt;this_)-&gt;getZ()));
 }
 
 NAN_SETTER(Point::zSetter)
 {
-	Point *geom = ObjectWrap::Unwrap&lt;Point&gt;(args.This());
+	Point *geom = Nan::ObjectWrap::Unwrap&lt;Point&gt;(info.This());
 
 	if (!value-&gt;IsNumber()) {
-		NanThrowError(&quot;z must be a number&quot;);
+		Nan::ThrowError(&quot;z must be a number&quot;);
 		return;
 	}
 	double z = value-&gt;NumberValue();

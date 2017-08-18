@@ -24,22 +24,26 @@
             <li class="divider-vertical"></li>
             <li>
                 <p class="navbar-text">
-                    API Docs for Version: <b>0.6.0</b>
+                    API Docs for Version: <b>0.9.5</b>
                 </p>
             </li>
         </div>
         <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Constants (DCAP)", "classes/Constants (DMD)", "classes/Constants (GCI)", "classes/Constants (GDT)", "classes/Constants (GRA)", "classes/Constants (ODsC)", "classes/Constants (OFT)", "classes/Constants (OJ)", "classes/Constants (OLC)", "classes/Constants (wkbByteOrder)", "classes/Constants (wkbGeometryType)", "classes/Constants (wkbVariant)", "classes/gdal", "classes/gdal.CoordinateTransformation", "classes/gdal.Dataset", "classes/gdal.DatasetBands", "classes/gdal.DatasetLayers", "classes/gdal.Driver", "classes/gdal.Envelope", "classes/gdal.Envelope3D", "classes/gdal.Feature", "classes/gdal.FeatureDefn", "classes/gdal.FeatureDefnFields", "classes/gdal.FeatureFields", "classes/gdal.FieldDefn", "classes/gdal.GDALDrivers", "classes/gdal.Geometry", "classes/gdal.GeometryCollection", "classes/gdal.GeometryCollectionChildren", "classes/gdal.Layer", "classes/gdal.LayerFeatures", "classes/gdal.LayerFields", "classes/gdal.LinearRing", "classes/gdal.LineString", "classes/gdal.LineStringPoints", "classes/gdal.MultiLineString", "classes/gdal.MultiPoint", "classes/gdal.MultiPolygon", "classes/gdal.Point", "classes/gdal.Polygon", "classes/gdal.PolygonRings", "classes/gdal.RasterBand", "classes/gdal.RasterBandOverviews", "classes/gdal.RasterBandPixels", "classes/gdal.SpatialReference"]'>
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/Constants (CPL Error Codes)", "classes/Constants (CPL Error Levels)", "classes/Constants (DCAP)", "classes/Constants (DMD)", "classes/Constants (GCI)", "classes/Constants (GDT)", "classes/Constants (GRA)", "classes/Constants (ODsC)", "classes/Constants (OFT)", "classes/Constants (OJ)", "classes/Constants (OLC)", "classes/Constants (wkbByteOrder)", "classes/Constants (wkbGeometryType)", "classes/Constants (wkbVariant)", "classes/gdal", "classes/gdal.CoordinateTransformation", "classes/gdal.Dataset", "classes/gdal.DatasetBands", "classes/gdal.DatasetLayers", "classes/gdal.Driver", "classes/gdal.Envelope", "classes/gdal.Envelope3D", "classes/gdal.Feature", "classes/gdal.FeatureDefn", "classes/gdal.FeatureDefnFields", "classes/gdal.FeatureFields", "classes/gdal.FieldDefn", "classes/gdal.GDALDrivers", "classes/gdal.Geometry", "classes/gdal.GeometryCollection", "classes/gdal.GeometryCollectionChildren", "classes/gdal.Layer", "classes/gdal.LayerFeatures", "classes/gdal.LayerFields", "classes/gdal.LinearRing", "classes/gdal.LineString", "classes/gdal.LineStringPoints", "classes/gdal.MultiLineString", "classes/gdal.MultiPoint", "classes/gdal.MultiPolygon", "classes/gdal.Point", "classes/gdal.Polygon", "classes/gdal.PolygonRings", "classes/gdal.RasterBand", "classes/gdal.RasterBandOverviews", "classes/gdal.RasterBandPixels", "classes/gdal.SpatialReference"]'>
         </form>
     </div>
 </div>
 <div class="container">
     <div class="row">
         <div class="span3">
-	    <div>
+<div>
     <div id="sidebar">
     <div id="classes">
         <ul id="api-classes" class="nav nav-list">
+            
+                <li><a href="../classes/Constants (CPL Error Codes).html">Constants (CPL Error Codes)</a></li>
+            
+                <li><a href="../classes/Constants (CPL Error Levels).html">Constants (CPL Error Levels)</a></li>
             
                 <li><a href="../classes/Constants (DCAP).html">Constants (DCAP)</a></li>
             
@@ -138,7 +142,7 @@
 
         </div>
         <div class="span9">
-                <form id="options-form" class="form-inline pull-right">
+    <form id="options-form" class="form-inline pull-right">
         Show:
         <label for="api-show-inherited" class="checkbox">
             <input type="checkbox" id="api-show-inherited" checked>
@@ -165,7 +169,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <div class="page-header">
+<div class="page-header">
     <h1>gdal</h1>
 </div>
 
@@ -209,12 +213,23 @@ dataset.layers.get(0).features.forEach(function(feature) {
 				
 				<li><a href="#prop-gdal.drivers"><span class="ip">gdal.drivers</span></a></li>
 				
+				<li><a href="#prop-gdal.lastError"><span class="ip">gdal.lastError</span></a></li>
+				
 				<li><a href="#prop-gdal.version"><span class="ip">gdal.version</span></a></li>
 				
 			</ul>
 		</li>
 		
 
+		
+		<li>
+			<strong>Attributes</strong>
+			<ul>
+				
+				<li><a href="#attr-lastError"><span class="iattr">lastError</span></a></li>
+				
+			</ul>
+		</li>
 		
 
 		
@@ -292,7 +307,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
 
         <div class="item-list">
         
-            <div id="prop-gdal.drivers" class="property item">
+<div id="prop-gdal.drivers" class="property item">
     <h3 class="name"><code>gdal.drivers</code></h3>
     <span class="type"><a href="../classes/gdal.GDALDrivers.html" class="crosslink">gdal.GDALDrivers</a></span>
 
@@ -317,7 +332,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
             
         
         
-        <a href="../files/src_node_gdal.cpp.html#l215"><code>src&#x2F;node_gdal.cpp:215</code></a>
+        <a href="../files/src_node_gdal.cpp.html#l265"><code>src&#x2F;node_gdal.cpp:265</code></a>
         
         </p>
 
@@ -339,7 +354,56 @@ dataset.layers.get(0).features.forEach(function(feature) {
 </div>
 
         
-            <div id="prop-gdal.version" class="property item">
+<div id="prop-gdal.lastError" class="property item">
+    <h3 class="name"><code>gdal.lastError</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+        <span class="flag final">const</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_node_gdal.cpp.html#l1142"><code>src&#x2F;node_gdal.cpp:1142</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Details about the last error that occurred. The property
+will be null or an object containing three properties: "number",
+"message", and "type".</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+        
+<div id="prop-gdal.version" class="property item">
     <h3 class="name"><code>gdal.version</code></h3>
     <span class="type">String</span>
 
@@ -364,7 +428,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
             
         
         
-        <a href="../files/src_node_gdal.cpp.html#l966"><code>src&#x2F;node_gdal.cpp:966</code></a>
+        <a href="../files/src_node_gdal.cpp.html#l1132"><code>src&#x2F;node_gdal.cpp:1132</code></a>
         
         </p>
 
@@ -391,6 +455,63 @@ dataset.layers.get(0).features.forEach(function(feature) {
 
 
 
+    <div id="attrs" class="page-section">
+        <h2 class="off-left">Attributes</h2>
+
+        
+<div id="attr-lastError" class="attr item">
+    <a name="config_lastError"></a> 
+    <h3 class="name"><code>lastError</code></h3>
+    <span class="type">Object</span>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_node_gdal.cpp.html#l88"><code>src&#x2F;node_gdal.cpp:88</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+        
+    </div>
+
 
 
 
@@ -400,7 +521,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
         <div class="item-list">
         
 			
-    	        <div id="method-checksumImage" class="method item">
+<div id="method-checksumImage" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.checksumImage</code></span>
 
@@ -583,7 +704,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
             
         
 			
-    	        <div id="method-config.get" class="method item">
+<div id="method-config.get" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.config.get</code></span>
 
@@ -628,7 +749,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
 			
 		
 		
-		<a href="../files/lib_gdal.js.html#l18"><code>lib&#x2F;gdal.js:18</code></a>
+		<a href="../files/lib_gdal.js.html#l23"><code>lib&#x2F;gdal.js:23</code></a>
 		
 		</p>
 
@@ -695,7 +816,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
             
         
 			
-    	        <div id="method-config.set" class="method item">
+<div id="method-config.set" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.config.set</code></span>
 
@@ -746,7 +867,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
 			
 		
 		
-		<a href="../files/lib_gdal.js.html#l33"><code>lib&#x2F;gdal.js:33</code></a>
+		<a href="../files/lib_gdal.js.html#l38"><code>lib&#x2F;gdal.js:38</code></a>
 		
 		</p>
 
@@ -826,7 +947,7 @@ dataset.layers.get(0).features.forEach(function(feature) {
             
         
 			
-    	        <div id="method-contourGenerate" class="method item">
+<div id="method-contourGenerate" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.contourGenerate</code></span>
 
@@ -1021,7 +1142,7 @@ that should not be considered in contour line generation.</p>
             
         
 			
-    	        <div id="method-decToDMS" class="method item">
+<div id="method-decToDMS" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.decToDMS</code></span>
 
@@ -1078,7 +1199,7 @@ that should not be considered in contour line generation.</p>
 			
 		
 		
-		<a href="../files/src_gdal.hpp.html#l111"><code>src&#x2F;gdal.hpp:111</code></a>
+		<a href="../files/src_gdal.hpp.html#l114"><code>src&#x2F;gdal.hpp:114</code></a>
 		
 		</p>
 
@@ -1168,7 +1289,7 @@ that should not be considered in contour line generation.</p>
             
         
 			
-    	        <div id="method-fillNodata" class="method item">
+<div id="method-fillNodata" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.fillNodata</code></span>
 
@@ -1309,7 +1430,7 @@ that should not be considered in contour line generation.</p>
             
         
 			
-    	        <div id="method-open" class="method item">
+<div id="method-open" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.open</code></span>
 
@@ -1396,7 +1517,7 @@ that should not be considered in contour line generation.</p>
 			
 		
 		
-		<a href="../files/lib_gdal.js.html#l293"><code>lib&#x2F;gdal.js:293</code></a>
+		<a href="../files/lib_gdal.js.html#l497"><code>lib&#x2F;gdal.js:497</code></a>
 		
 		</p>
 
@@ -1585,7 +1706,7 @@ that should not be considered in contour line generation.</p>
             
         
 			
-    	        <div id="method-polygonize" class="method item">
+<div id="method-polygonize" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.polygonize</code></span>
 
@@ -1751,7 +1872,7 @@ provided to determine which pixels are eligible for processing.</p>
             
         
 			
-    	        <div id="method-quiet" class="method item">
+<div id="method-quiet" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.quiet</code></span>
 
@@ -1782,7 +1903,7 @@ provided to determine which pixels are eligible for processing.</p>
 			
 		
 		
-		<a href="../files/src_node_gdal.cpp.html#l981"><code>src&#x2F;node_gdal.cpp:981</code></a>
+		<a href="../files/src_node_gdal.cpp.html#l1159"><code>src&#x2F;node_gdal.cpp:1159</code></a>
 		
 		</p>
 
@@ -1807,7 +1928,7 @@ provided to determine which pixels are eligible for processing.</p>
             
         
 			
-    	        <div id="method-reprojectImage" class="method item">
+<div id="method-reprojectImage" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.reprojectImage</code></span>
 
@@ -2089,7 +2210,7 @@ provided to determine which pixels are eligible for processing.</p>
             
         
 			
-    	        <div id="method-sieveFilter" class="method item">
+<div id="method-sieveFilter" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.sieveFilter</code></span>
 
@@ -2241,7 +2362,7 @@ provided to determine which pixels are eligible for processing.</p>
             
         
 			
-    	        <div id="method-suggestedWarpOutput" class="method item">
+<div id="method-suggestedWarpOutput" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.suggestedWarpOutput</code></span>
 
@@ -2399,7 +2520,7 @@ should be large enough to include all the input image.</p>
             
         
 			
-    	        <div id="method-verbose" class="method item">
+<div id="method-verbose" class="method item">
 	<div class="method-signature">
 	<span class="name"><code>gdal.verbose</code></span>
 
@@ -2430,7 +2551,7 @@ should be large enough to include all the input image.</p>
 			
 		
 		
-		<a href="../files/src_node_gdal.cpp.html#l990"><code>src&#x2F;node_gdal.cpp:990</code></a>
+		<a href="../files/src_node_gdal.cpp.html#l1168"><code>src&#x2F;node_gdal.cpp:1168</code></a>
 		
 		</p>
 
