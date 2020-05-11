@@ -23,9 +23,9 @@
   "binary": {
     "module_name": "gdal",
     "module_path": "./lib/binding/{node_abi}-{platform}-{arch}",
-    "remote_path": "./{module_name}/v{version}/{toolset}/",
-    "host": "https://mapbox-node-binary.s3.amazonaws.com",
-    "package_name": "{node_abi}-{platform}-{arch}.tar.gz"
+    "remote_path": "./releases/download/v0.9.11/",
+    "host": "https://github.com/ccebrand/node-gdal",
+    "package_name": "node-v83-linux-x64.tar.gz"
   },
   "repository": {
     "type": "git",
